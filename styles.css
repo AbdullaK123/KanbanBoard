@@ -1,0 +1,566 @@
+/* 1. CSS Reset & Base Styles */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 2. Root Variables */
+:root {
+    /* Color System */
+    --primary-color: #2196f3;      
+    --secondary-color: #757575;    
+
+    /* State Colors */
+    --success-color: #4caf50;      
+    --warning-color: #ff9800;      
+    --error-color: #f44336;        
+
+    /* Priority Colors */
+    --priority-high: #f44336;      
+    --priority-medium: #ff9800;     
+    --priority-low: #4caf50;       
+
+    /* Neutral Colors */
+    --text-primary: #212121;       
+    --text-secondary: #757575;     
+    --text-btn: #ffffff;           
+    --hover-color: #f5f5f5;
+    --hover-color-secondary: #4caf4c;       
+    --background-main: #f5f5f5;    
+    --background-card: #ffffff;    
+    --border-color: #e0e0e0;       
+
+    /* Typography Scale */
+    --font-primary: 'Roboto', sans-serif;
+    --font-heading-1: clamp(1.5rem, 3vw, 2.5rem);     /* Main headers */
+    --font-heading-2: clamp(1.25rem, 2.5vw, 2rem);    /* Section headers */
+    --font-heading-3: clamp(1rem, 2vw, 1.5rem);       /* Card headers */
+    --font-body: clamp(0.875rem, 1vw, 1rem);          /* Body text */
+    --font-small: clamp(0.75rem, 0.875vw, 0.875rem);  /* Meta text */
+
+    /* Spacing Scale */
+    --spacing-xxs: 0.25rem;   /* 4px */
+    --spacing-xs: 0.5rem;     /* 8px */
+    --spacing-sm: 0.75rem;    /* 12px */
+    --spacing-md: 1rem;       /* 16px */
+    --spacing-lg: 1.5rem;     /* 24px */
+    --spacing-xl: 2rem;       /* 32px */
+    --spacing-xxl: 3rem;      /* 48px */
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.20);
+
+    /* Z-index Scale */
+    --z-drawer: 100;
+    --z-modal: 200;
+    --z-toast: 300;
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 350ms ease;
+
+    /* Layout */
+    --header-height: 60px;
+    --container-max-width: 1200px;
+    --container-padding: clamp(1rem, 3vw, 2rem);
+    --card-width: clamp(250px, 30vw, 350px);
+}
+
+/* 3. Dark Theme */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-main: #121212;
+        --background-card: #1e1e1e;
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0b0;
+        --border-color: #2d2d2d;
+        --hover-color: #2d2d2d;
+    }
+}
+
+/* 4. Base Styles */
+body {
+    font-family: var(--font-primary);
+    font-size: var(--font-body);
+    line-height: 1.5;
+    color: var(--text-primary);
+    background-color: var(--background-main);
+}
+
+/* 5. Typography */
+h1, .h1 { font-size: var(--font-heading-1); }
+h2, .h2 { font-size: var(--font-heading-2); }
+h3, .h3 { font-size: var(--font-heading-3); }
+.text-small { font-size: var(--font-small); }
+
+/* 6. Layout Components */
+
+/* Navbar */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-drawer);
+    background-color: var(--primary-color);
+    color: var(--text-btn);
+    padding: var(--container-padding);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.navbar-brand h1 {
+    font-size: var(--font-heading-2);
+    margin: 0;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.nav-btn {
+    font-size: var(--font-small);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--secondary-color);
+    color: var(--text-btn);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.nav-btn:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-1px);
+    color: var(--text-primary);
+}
+
+.nav-btn:active {
+    transform: translateY(0);
+}
+
+.nav-btn:focus {
+    outline: 2px solid var(--text-btn);
+    outline-offset: 2px;
+}
+
+/* 7. Responsive Design */
+@media (min-width: 440px) {
+    .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: var(--spacing-md) var(--container-padding);
+    }
+}
+
+/* 8. Utilities */
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Filters */
+.control-panel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.search-input {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--background-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: var(--font-small);
+    transition: all var(--transition-fast);
+}
+
+.filter-select {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--background-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: var(--font-small);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn, .btn-primary {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--secondary-color);
+    color: var(--text-primary);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn:hover, .btn-primary:hover {
+    transform: translateY(-1px);
+    color: var(--hover-color);
+}
+
+.btn:active, .btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Task containers */
+/* Board Layout */
+.board-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md);
+    overflow-x: auto;
+}
+
+@media (min-width: 768px) {
+    .board-container {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+/* List Containers */
+.list-container {
+    flex: 1;
+    min-width: var(--card-width);
+    background: var(--background-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-md);
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.list-header h2 {
+    color: var(--text-primary);
+    font-size: var(--font-heading-3);
+}
+
+.task-count {
+    background: var(--primary-color);
+    color: var(--text-btn);
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    border-radius: var(--radius-full);
+    font-size: var(--font-small);
+}
+
+.list-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    min-height: 200px; /* For empty lists */
+}
+
+/* Drag and Drop Styles */
+.list-content.drag-over {
+    background-color: var(--hover-color);
+    border-radius: var(--radius-md);
+}
+
+/* Task Cards */
+.task-card {
+    background: var(--background-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+    cursor: grab;
+    transition: all var(--transition-fast);
+}
+
+.task-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.task-card:active {
+    cursor: grabbing;
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-sm);
+}
+
+.task-title {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.task-priority {
+    font-size: var(--font-small);
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    border-radius: var(--radius-sm);
+}
+
+.priority-high {
+    background-color: var(--priority-high);
+    color: var(--text-btn);
+}
+
+.priority-medium {
+    background-color: var(--priority-medium);
+    color: var(--text-btn);
+}
+
+.priority-low {
+    background-color: var(--priority-low);
+    color: var(--text-btn);
+}
+
+.task-description {
+    color: var(--text-secondary);
+    font-size: var(--font-small);
+    margin-bottom: var(--spacing-xs);
+}
+
+.task-metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-small);
+    color: var(--text-secondary);
+    margin-top: var(--spacing-sm);
+}
+
+.task-labels {
+    display: flex;
+    gap: var(--spacing-xxs);
+    flex-wrap: wrap;
+}
+
+.task-label {
+    background: var(--secondary-color);
+    color: var(--text-btn);
+    padding: 2px var(--spacing-xs);
+    border-radius: var(--radius-full);
+    font-size: var(--font-small);
+}
+
+.task-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-icon {
+    padding: var(--spacing-xxs);
+    min-width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn-icon:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-1px);
+}
+
+.edit-task:hover {
+    border: 1px solid var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.delete-task:hover {
+    border: 1px solid var(--error-color);
+    border-color: var(--error-color);
+    color: var(--error-color);
+}
+
+/* Optional: Add some hover effects to the task card */
+.task-card:hover .task-actions {
+    opacity: 1;
+}
+
+/* Modal form */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: var(--z-modal);
+}
+
+.modal-content {
+    background: var(--background-card);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90%;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-title {
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--border-color);
+    font-size: var(--font-heading-3);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xxs);
+    font-size: var(--font-small);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--background-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: var(--font-small);
+    transition: all var(--transition-fast);
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.modal-actions button {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--secondary-color);
+    color: var(--text-primary);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.modal-actions button:hover {
+    transform: translateY(-1px);
+    color: var(--hover-color);
+}
+
+.close-button {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-xxs);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.close-button:hover {
+    background-color: var(--hover-color);
+    color: var(--text-primary);
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.model-content {
+    animation: modalFadeIn var(--transition-normal) ease-in-out;
+}
+
+.required::after {
+    content: "*";
+    color: var(--error-color);
+    margin-left: var(--spacing-xxs);
+}
+
